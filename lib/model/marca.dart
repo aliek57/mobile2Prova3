@@ -1,22 +1,25 @@
 class Marca {
-  final int? id;
-  final String nome;
+  int id = 0;
+  String nome = "";
 
-  Marca({this.id, required this.nome});
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['nome'] = nome;
-    if (id != null) {
-      data['id'] = id;
-    }
-    return data;
-  }
+  Marca(this.id, this.nome);
 
   factory Marca.fromJson(Map<String, dynamic> json) {
-    return Marca(
-      id: json['id'],
-      nome: json['nome'],
-    );
+    return Marca(json['id'], json['nome']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'nome': nome};
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Marca &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              nome == other.nome;
+
+  @override
+  int get hashCode => Object.hash(id, nome);
 }

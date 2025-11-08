@@ -1,38 +1,49 @@
 import 'package:mobile2prova3/model/marca.dart';
 
 class Modelo {
-  final int? id;
-  final String nome;
-  final int idMarca;
-  final Marca? marca;
-  final String tipo;
+  int id = 0;
+  String nome = "";
+  String tipo = "";
+  int idMarca = 0;
+  Marca? marca;
 
-  Modelo({
-    this.id,
-    required this.nome,
-    required this.idMarca,
-    this.marca,
-    required this.tipo,
-  });
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['nome'] = nome;
-    data['idMarca'] = idMarca;
-    data['tipo'] = tipo;
-    if (id != null) {
-      data['id'] = id;
-    }
-    return data;
-  }
+  Modelo(
+      this.id,
+      this.nome,
+      this.tipo,
+      this.idMarca, {
+        this.marca,
+      });
 
   factory Modelo.fromJson(Map<String, dynamic> json) {
     return Modelo(
-      id: json['id'],
-      nome: json['nome'],
-      idMarca: json['idMarca'],
-      tipo: json['tipo'],
+      json['id'],
+      json['nome'],
+      json['tipo'],
+      json['idMarca'],
       marca: json['marca'] != null ? Marca.fromJson(json['marca']) : null,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'nome': nome,
+      'tipo': tipo,
+      'idMarca': idMarca,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Modelo &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              nome == other.nome &&
+              tipo == other.tipo &&
+              idMarca == other.idMarca;
+
+  @override
+  int get hashCode => Object.hash(id, nome, tipo, idMarca);
 }

@@ -2,53 +2,68 @@ import 'package:mobile2prova3/model/cidade.dart';
 import 'package:mobile2prova3/model/modelo.dart';
 
 class Anuncio {
-  final int? id;
-  final Modelo? modelo;
-  final Cidade? cidade;
-  final String descricao;
-  final double valor;
-  final int ano;
-  final int km;
-  final int idCidade;
-  final int idModelo;
+  int id = 0;
+  Modelo? modelo;
+  Cidade? cidade;
+  String descricao = "";
+  double valor = 0.0;
+  int ano = 0;
+  int km = 0;
+  int idCidade = 0;
+  int idModelo = 0;
 
-  Anuncio({
-    this.id,
-    this.modelo,
-    this.cidade,
-    required this.descricao,
-    required this.valor,
-    required this.ano,
-    required this.km,
-    required this.idCidade,
-    required this.idModelo,
-  });
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['descricao'] = descricao;
-    data['valor'] = valor;
-    data['ano'] = ano;
-    data['km'] = km;
-    data['idCidade'] = idCidade;
-    data['idModelo'] = idModelo;
-    if (id != null) {
-      data['id'] = id;
-    }
-    return data;
-  }
+  Anuncio(
+      this.id,
+      this.descricao,
+      this.valor,
+      this.ano,
+      this.km,
+      this.idCidade,
+      this.idModelo, {
+        this.modelo,
+        this.cidade,
+      });
 
   factory Anuncio.fromJson(Map<String, dynamic> json) {
     return Anuncio(
-      id: json['id'],
+      json['id'],
+      json['descricao'],
+      (json['valor'] as num).toDouble(),
+      json['ano'],
+      json['km'],
+      json['idCidade'],
+      json['idModelo'],
       modelo: json['modelo'] != null ? Modelo.fromJson(json['modelo']) : null,
       cidade: json['cidade'] != null ? Cidade.fromJson(json['cidade']) : null,
-      descricao: json['descricao'],
-      valor: (json['valor'] as num).toDouble(),
-      ano: json['ano'],
-      km: json['km'],
-      idCidade: json['idCidade'],
-      idModelo: json['idModelo'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'descricao': descricao,
+      'valor': valor,
+      'ano': ano,
+      'km': km,
+      'idCidade': idCidade,
+      'idModelo': idModelo,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Anuncio &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              descricao == other.descricao &&
+              valor == other.valor &&
+              ano == other.ano &&
+              km == other.km &&
+              idCidade == other.idCidade &&
+              idModelo == other.idModelo;
+
+  @override
+  int get hashCode => Object.hash(
+      id, descricao, valor, ano, km, idCidade, idModelo);
 }
