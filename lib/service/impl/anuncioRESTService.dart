@@ -36,6 +36,37 @@ class AnuncioRESTService extends Service<Anuncio> {
     }
   }
 
+  Future<List<Anuncio>> buscar(
+      {int? modelo,
+        int? anoInicial,
+        int? anoFinal,
+        double? min,
+        double? max}) async {
+
+    Map<String, String> queryParams = {};
+    if (modelo != null) queryParams['modelo'] = modelo.toString();
+    if (anoInicial != null) queryParams['ano_inicial'] = anoInicial.toString();
+    if (anoFinal != null) queryParams['ano_final'] = anoFinal.toString();
+    if (min != null) queryParams['min'] = min.toString();
+    if (max != null) queryParams['max'] = max.toString();
+
+    String queryString = Uri(queryParameters: queryParams).query;
+    final Uri uri = Uri.parse("$URL?$queryString");
+
+    List<Anuncio> anuncios = [];
+    http.Response resp = await http.get(uri);
+
+    if (resp.statusCode == 200) {
+      var dados = jsonDecode(resp.body);
+      for (Map<String, dynamic> m in dados) {
+        anuncios.add(Anuncio.fromJson(m));
+      }
+    } else {
+      throw Exception("Falha ao buscar anuncios filtrados: ${resp.statusCode}");
+    }
+    return anuncios;
+  }
+
   @override
   Future<Anuncio> insert(Anuncio novo) async {
     http.Response resp = await http.post(
