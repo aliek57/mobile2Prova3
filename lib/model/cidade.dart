@@ -6,11 +6,22 @@ class Cidade {
   Cidade(this.id, this.nome, this.ddd);
 
   factory Cidade.fromJson(Map<String, dynamic> json) {
-    return Cidade(json['id'], json['nome'], json['ddd']);
+    return Cidade(
+        json['id'],
+        json['nome'],
+        json['ddd']
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'nome': nome, 'ddd': ddd};
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nome'] = nome;
+    data['ddd'] = ddd;
+
+    if (id != 0) {
+      data['id'] = id;
+    }
+    return data;
   }
 
   @override

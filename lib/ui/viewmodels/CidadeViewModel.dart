@@ -8,11 +8,16 @@ class CidadeViewModel extends ChangeNotifier {
   final _snackbarController = StreamController<String>.broadcast();
   Stream<String> get errorStream => _snackbarController.stream;
 
-  late final CidadeRepository _repo;
+  late CidadeRepository _repo;
   Cidade? edicao;
+  bool _jaInicializado = false;
 
   Future<void> conectar() async {
-    _repo = CidadeRepository.getInstance();
+    if (!_jaInicializado) {
+      _repo = CidadeRepository.getInstance();
+      _jaInicializado = true;
+    }
+
     await _repo.getAll();
   }
 

@@ -10,13 +10,17 @@ class ModeloViewModel extends ChangeNotifier {
   final _snackbarController = StreamController<String>.broadcast();
   Stream<String> get errorStream => _snackbarController.stream;
 
-  late final ModeloRepository _repo;
-  late final MarcaRepository _marcaRepo;
+  late ModeloRepository _repo;
+  late MarcaRepository _marcaRepo;
   Modelo? edicao;
+  bool _jaInicializado = false;
 
   Future<void> conectar() async {
-    _repo = ModeloRepository.getInstance();
-    _marcaRepo = MarcaRepository.getInstance();
+    if (!_jaInicializado) {
+      _repo = ModeloRepository.getInstance();
+      _marcaRepo = MarcaRepository.getInstance();
+      _jaInicializado = true;
+    }
 
     await _repo.getAll();
     await _marcaRepo.getAll();

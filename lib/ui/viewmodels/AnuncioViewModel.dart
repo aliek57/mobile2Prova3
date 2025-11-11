@@ -12,15 +12,19 @@ class AnuncioViewModel extends ChangeNotifier {
   final _snackbarController = StreamController<String>.broadcast();
   Stream<String> get errorStream => _snackbarController.stream;
 
-  late final AnuncioRepository _repo;
-  late final ModeloRepository _modeloRepo;
-  late final CidadeRepository _cidadeRepo;
+  late AnuncioRepository _repo;
+  late ModeloRepository _modeloRepo;
+  late CidadeRepository _cidadeRepo;
   Anuncio? edicao;
+  bool _jaInicializado = false;
 
   Future<void> conectar() async {
-    _repo = AnuncioRepository.getInstance();
-    _modeloRepo = ModeloRepository.getInstance();
-    _cidadeRepo = CidadeRepository.getInstance();
+    if (!_jaInicializado) {
+      _repo = AnuncioRepository.getInstance();
+      _modeloRepo = ModeloRepository.getInstance();
+      _cidadeRepo = CidadeRepository.getInstance();
+      _jaInicializado = true;
+    }
 
     await _repo.getAll();
     await _modeloRepo.getAll();

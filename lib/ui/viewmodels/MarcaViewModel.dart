@@ -8,11 +8,16 @@ class MarcaViewModel extends ChangeNotifier {
   final _snackbarController = StreamController<String>.broadcast();
   Stream<String> get errorStream => _snackbarController.stream;
 
-  late final MarcaRepository _repo;
+  late MarcaRepository _repo;
   Marca? edicao;
+  bool _jaInicializado = false;
 
   Future<void> conectar() async {
-    _repo = MarcaRepository.getInstance();
+    if (!_jaInicializado) {
+      _repo = MarcaRepository.getInstance();
+      _jaInicializado = true;
+    }
+
     await _repo.getAll();
   }
 

@@ -5,14 +5,19 @@ import 'package:mobile2prova3/repository/ModeloRepository.dart';
 import 'package:mobile2prova3/service/impl/anuncioRESTService.dart';
 
 class BuscaViewModel extends ChangeNotifier {
-  late final ModeloRepository _modeloRepo;
+  late ModeloRepository _modeloRepo;
   final AnuncioRESTService _anuncioService = AnuncioRESTService();
 
   List<Anuncio> resultados = [];
   bool carregando = false;
+  bool _jaInicializado = false;
 
   Future<void> conectar() async {
-    _modeloRepo = ModeloRepository.getInstance();
+    if (!_jaInicializado) {
+      _modeloRepo = ModeloRepository.getInstance();
+      _jaInicializado = true;
+    }
+
     await _modeloRepo.getAll();
     notifyListeners();
   }

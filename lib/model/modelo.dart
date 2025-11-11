@@ -17,21 +17,24 @@ class Modelo {
 
   factory Modelo.fromJson(Map<String, dynamic> json) {
     return Modelo(
-      json['id'],
-      json['nome'],
-      json['tipo'],
-      json['idMarca'],
+      json['id'] ?? 0,
+      json['nome'] ?? '',
+      json['tipo'] ?? '',
+      json['idMarca'] ?? 0,
       marca: json['marca'] != null ? Marca.fromJson(json['marca']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'nome': nome,
-      'tipo': tipo,
-      'idMarca': idMarca,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nome'] = nome;
+    data['tipo'] = tipo;
+    data['idMarca'] = idMarca;
+
+    if (id != 0) {
+      data['id'] = id;
+    }
+    return data;
   }
 
   @override

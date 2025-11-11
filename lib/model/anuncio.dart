@@ -26,28 +26,31 @@ class Anuncio {
 
   factory Anuncio.fromJson(Map<String, dynamic> json) {
     return Anuncio(
-      json['id'],
-      json['descricao'],
-      (json['valor'] as num).toDouble(),
-      json['ano'],
-      json['km'],
-      json['idCidade'],
-      json['idModelo'],
+      json['id'] ?? 0,
+      json['descricao'] ?? '',
+      (json['valor'] as num? ?? 0.0).toDouble(),
+      json['ano'] ?? 0,
+      json['km'] ?? 0,
+      json['idCidade'] ?? 0,
+      json['idModelo'] ?? 0,
       modelo: json['modelo'] != null ? Modelo.fromJson(json['modelo']) : null,
       cidade: json['cidade'] != null ? Cidade.fromJson(json['cidade']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'descricao': descricao,
-      'valor': valor,
-      'ano': ano,
-      'km': km,
-      'idCidade': idCidade,
-      'idModelo': idModelo,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['descricao'] = descricao;
+    data['valor'] = valor;
+    data['ano'] = ano;
+    data['km'] = km;
+    data['idCidade'] = idCidade;
+    data['idModelo'] = idModelo;
+
+    if (id != 0) {
+      data['id'] = id;
+    }
+    return data;
   }
 
   @override

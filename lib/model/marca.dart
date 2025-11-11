@@ -5,7 +5,10 @@ class Marca {
   Marca(this.id, this.nome);
 
   factory Marca.fromJson(Map<String, dynamic> json) {
-    return Marca(json['id'], json['nome']);
+    return Marca(
+        json['id'],
+        json['nome']
+    );
   }
 
   Map<String, dynamic> toJson() {
