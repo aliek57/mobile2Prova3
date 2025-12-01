@@ -35,8 +35,14 @@ class ModeloRepository {
 
   Future<void> remove(int id) async {
     Modelo? m = _cache?.firstWhere((element) => element.id == id, orElse: null);
-    if (m != null && await _service.remove(m)) {
-      _cache!.remove(m);
+    if (m != null) {
+      bool sucessoServico = await _service.remove(m);
+
+      if (sucessoServico) {
+        _cache!.remove(m);
+      } else {
+        throw Exception("Falha ao remover modelo do servidor.");
+      }
     }
   }
 

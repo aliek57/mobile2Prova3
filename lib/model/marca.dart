@@ -12,7 +12,14 @@ class Marca {
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'nome': nome};
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nome'] = nome;
+
+    if (id != 0) {
+      data['id'] = id;
+    }
+
+    return data;
   }
 
   @override

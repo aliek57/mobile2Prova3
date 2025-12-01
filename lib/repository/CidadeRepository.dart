@@ -35,8 +35,14 @@ class CidadeRepository {
 
   Future<void> remove(int id) async {
     Cidade? c = _cache?.firstWhere((element) => element.id == id, orElse: null);
-    if (c != null && await _service.remove(c)) {
-      _cache!.remove(c);
+    if (c != null) {
+      bool sucessoServico = await _service.remove(c);
+
+      if (sucessoServico) {
+        _cache!.remove(c);
+      } else {
+        throw Exception("Falha ao remover cidade do servidor.");
+      }
     }
   }
 

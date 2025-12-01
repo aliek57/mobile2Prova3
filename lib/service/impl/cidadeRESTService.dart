@@ -5,7 +5,7 @@ import 'package:mobile2prova3/service/Service.dart';
 
 class CidadeRESTService extends Service<Cidade> {
 
-  static const String URL = "http://argo.td.utfpr.edu.br/carros/ws/cidades";
+  static const String URL = "http://192.168.1.4:3000/carros/ws/cidades";
 
   @override
   Future<List<Cidade>> getAll() async {
@@ -45,8 +45,19 @@ class CidadeRESTService extends Service<Cidade> {
     );
 
     if (resp.statusCode == 200 || resp.statusCode == 201) {
-      Cidade c = Cidade.fromJson(jsonDecode(resp.body));
-      return c;
+      if (resp.body.isNotEmpty) {
+        return Cidade.fromJson(jsonDecode(resp.body));
+      } else {
+        if (resp.headers.containsKey('location')) {
+          String location = resp.headers['location']!;
+          String idStr = location.split('/').last;
+          int id = int.tryParse(idStr) ?? 0;
+          if (id != 0) {
+            novo.id = id;
+          }
+        }
+        return novo;
+      }
     } else {
       throw Exception("Falha inserindo cidade: ${resp.statusCode}");
     }
@@ -65,6 +76,6 @@ class CidadeRESTService extends Service<Cidade> {
   @override
   Future<bool> remove(Cidade cidade) async {
     http.Response resp = await http.delete(Uri.parse("$URL/${cidade.id}"));
-    return resp.statusCode == 204;
+    return resp.statusCode == 200 || resp.statusCode == 204;
   }
 }

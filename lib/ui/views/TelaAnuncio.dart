@@ -223,8 +223,8 @@ class _TelaAnuncioState extends State<TelaAnuncio> {
               _anoController.text = anuncio.ano.toString();
               _kmController.text = anuncio.km.toString();
               setState(() {
-                _modeloSelecionadoId = anuncio.idModelo;
-                _cidadeSelecionadaId = anuncio.idCidade;
+                _modeloSelecionadoId = anuncio.idModelo== 0 ? null : anuncio.idModelo;
+                _cidadeSelecionadaId = anuncio.idCidade== 0 ? null : anuncio.idCidade;
               });
             },
           ),

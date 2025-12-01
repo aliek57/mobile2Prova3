@@ -75,6 +75,16 @@ class AnuncioViewModel extends ChangeNotifier {
       int km,
       int idCidade,
       int idModelo) async {
+    if (idCidade == 0) {
+      _snackbarController.sink.add("Erro: Você deve selecionar uma cidade.");
+      return;
+    }
+
+    if (idModelo == 0) {
+      _snackbarController.sink.add("Erro: Você deve selecionar um modelo.");
+      return;
+    }
+
     try {
       if (edicao == null) {
         await _repo.insert(
@@ -110,7 +120,11 @@ class AnuncioViewModel extends ChangeNotifier {
   }
 
   void remover(int id) async {
-    await _repo.remove(id);
+    try {
+      await _repo.remove(id);
+    } on Exception catch (ex) {
+      _snackbarController.sink.add("Erro ao remover anúncio: ${ex.toString()}");
+    }
     notifyListeners();
   }
 

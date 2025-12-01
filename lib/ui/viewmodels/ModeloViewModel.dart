@@ -69,7 +69,11 @@ class ModeloViewModel extends ChangeNotifier {
   }
 
   void remover(int id) async {
-    await _repo.remove(id);
+    try {
+      await _repo.remove(id);
+    } on Exception catch (ex) {
+      _snackbarController.sink.add("Erro ao remover modelo: ${ex.toString()}");
+    }
     notifyListeners();
   }
 

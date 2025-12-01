@@ -5,7 +5,7 @@ import 'package:mobile2prova3/service/Service.dart';
 
 class MarcaRESTService extends Service<Marca> {
 
-  static const String URL = "http://argo.td.utfpr.edu.br/carros/ws/marcas";
+  static const String URL = "http://192.168.1.4:3000/carros/ws/marcas";
 
   @override
   Future<List<Marca>> getAll() async {
@@ -65,6 +65,6 @@ class MarcaRESTService extends Service<Marca> {
   @override
   Future<bool> remove(Marca marca) async {
     http.Response resp = await http.delete(Uri.parse("$URL/${marca.id}"));
-    return resp.statusCode == 204;
+    return resp.statusCode == 200 || resp.statusCode == 204;
   }
 }
