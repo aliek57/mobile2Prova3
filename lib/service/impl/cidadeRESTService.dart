@@ -5,7 +5,8 @@ import 'package:mobile2prova3/service/Service.dart';
 
 class CidadeRESTService extends Service<Cidade> {
 
-  static const String URL = "http://192.168.1.4:3000/carros/ws/cidades";
+  // static const String URL = "http://192.168.1.4:3000/carros/ws/cidades";
+  static const String URL = "http://argo.td.utfpr.edu.br/carros/ws/cidades";
 
   @override
   Future<List<Cidade>> getAll() async {

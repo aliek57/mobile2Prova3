@@ -5,12 +5,13 @@ import 'package:mobile2prova3/service/Service.dart';
 
 class ModeloRESTService extends Service<Modelo> {
 
-  static const String URL = "http://192.168.1.4:3000/carros/ws/modelos";
+  // static const String URL = "http://192.168.1.4:3000/carros/ws/modelos";
+  static const String URL = "http://argo.td.utfpr.edu.br/carros/ws/modelos";
 
   @override
   Future<List<Modelo>> getAll() async {
     List<Modelo> modelos = [];
-    http.Response resp = await http.get(Uri.parse("$URL?_expand=marca"));
+    http.Response resp = await http.get(Uri.parse(URL));
 
     if (resp.statusCode == 200) {
       var dados = jsonDecode(resp.body);
@@ -45,9 +46,9 @@ class ModeloRESTService extends Service<Modelo> {
     );
 
     if (resp.statusCode == 200 || resp.statusCode == 201) {
-      // Modelo m = Modelo.fromJson(jsonDecode(resp.body));
-      // return m;
-      Modelo temp = Modelo.fromJson(jsonDecode(resp.body));
+      Modelo m = Modelo.fromJson(jsonDecode(resp.body));
+      return m;
+      /*Modelo temp = Modelo.fromJson(jsonDecode(resp.body));
       http.Response respCompleta = await http.get(
           Uri.parse("$URL/${temp.id}?_expand=marca")
       );
@@ -56,7 +57,7 @@ class ModeloRESTService extends Service<Modelo> {
         return Modelo.fromJson(jsonDecode(respCompleta.body));
       } else {
         return temp;
-      }
+      }*/
     } else {
       throw Exception("Falha inserindo modelo: ${resp.statusCode}");
     }

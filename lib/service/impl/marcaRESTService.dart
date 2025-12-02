@@ -5,7 +5,8 @@ import 'package:mobile2prova3/service/Service.dart';
 
 class MarcaRESTService extends Service<Marca> {
 
-  static const String URL = "http://192.168.1.4:3000/carros/ws/marcas";
+  // static const String URL = "http://192.168.1.4:3000/carros/ws/marcas";
+  static const String URL = "http://argo.td.utfpr.edu.br/carros/ws/marcas";
 
   @override
   Future<List<Marca>> getAll() async {
