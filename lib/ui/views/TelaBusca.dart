@@ -54,7 +54,7 @@ class _TelaBuscaState extends State<TelaBusca> {
           DropdownButtonFormField<int>(
             value: _modeloSelecionadoId,
             decoration: const InputDecoration(
-              labelText: 'Modelo (Opcional)',
+              labelText: 'Modelo',
               border: OutlineInputBorder(),
             ),
             items: List.generate(

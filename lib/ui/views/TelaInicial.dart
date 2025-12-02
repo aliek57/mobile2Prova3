@@ -23,7 +23,7 @@ class TelaInicial extends StatelessWidget {
             _buildMenuItem(
               context,
               icon: Icons.directions_car,
-              label: 'Gerenciar Marcas',
+              label: 'Marcas',
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => TelaMarca()));
               },
@@ -32,7 +32,7 @@ class TelaInicial extends StatelessWidget {
             _buildMenuItem(
               context,
               icon: Icons.location_city,
-              label: 'Gerenciar Cidades',
+              label: 'Cidades',
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => TelaCidade()));
               },
@@ -41,7 +41,7 @@ class TelaInicial extends StatelessWidget {
             _buildMenuItem(
               context,
               icon: Icons.category,
-              label: 'Gerenciar Modelos',
+              label: 'Modelos',
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => TelaModelo()));
               },
@@ -50,7 +50,7 @@ class TelaInicial extends StatelessWidget {
             _buildMenuItem(
               context,
               icon: Icons.price_change,
-              label: 'Gerenciar Anúncios',
+              label: 'Anúncios',
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAnuncio()));
               },
