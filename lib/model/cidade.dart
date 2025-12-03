@@ -1,5 +1,5 @@
 class Cidade {
-  int id = 0;
+  int? id;
   String nome = "";
   String ddd = "";
 
@@ -18,7 +18,7 @@ class Cidade {
     data['nome'] = nome;
     data['ddd'] = ddd;
 
-    if (id != 0) {
+    if (id != null) {
       data['id'] = id;
     }
     return data;

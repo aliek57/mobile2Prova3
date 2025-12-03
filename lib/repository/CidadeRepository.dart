@@ -19,7 +19,7 @@ class CidadeRepository {
   }
 
   Future<List<Cidade>> getAll() async {
-    _cache ??= await _service.getAll();
+    _cache = await _service.getAll();
     return _cache!;
   }
 
@@ -30,19 +30,21 @@ class CidadeRepository {
 
   Future<bool> update(Cidade cidade) async {
     bool atualizou = await _service.update(cidade);
+    if(atualizou && _cache != null) {
+      int i = _cache!.indexWhere((element) => element.id == cidade.id);
+      if (i >= 0) _cache![i] = cidade;
+    }
     return atualizou;
   }
 
   Future<void> remove(int id) async {
-    Cidade? c = _cache?.firstWhere((element) => element.id == id, orElse: null);
-    if (c != null) {
-      bool sucessoServico = await _service.remove(c);
-
-      if (sucessoServico) {
+    Cidade? c = _cache?.firstWhere((element) => element.id == id);
+    if (c != null && c.id !=0) {
+      if (await _service.remove(c)){
         _cache!.remove(c);
-      } else {
-        throw Exception("Falha ao remover cidade do servidor.");
       }
+    } else {
+      throw Exception("Cidade vinculada a item.");
     }
   }
 

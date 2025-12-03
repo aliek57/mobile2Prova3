@@ -125,7 +125,7 @@ class _TelaCidadeState extends State<TelaCidade> {
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),
             onPressed: () {
-              viewModel.remover(cidade.id);
+              viewModel.remover(cidade.id ?? 0);
             },
           ),
         ],

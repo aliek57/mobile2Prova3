@@ -38,7 +38,7 @@ class CidadeViewModel extends ChangeNotifier {
   void confirmar(String nome, String ddd) async {
     try {
       if (edicao == null) {
-        await _repo.insert(Cidade(0, nome, ddd));
+        await _repo.insert(Cidade(null, nome, ddd));
       } else {
         edicao!.nome = nome;
         edicao!.ddd = ddd;
